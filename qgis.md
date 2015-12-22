@@ -7,11 +7,15 @@ Add links to the QGIS software repositories to your sources.list file:
 
 	sudo sh -c 'echo "deb http://qgis.org/debian trusty main" >> /etc/apt/sources.list'
 
+and...
+
 	sudo sh -c 'echo "deb-src http://qgis.org/debian trusty main " >> /etc/apt/sources.list'
 
 Then add the QGIS  keyservers:
 
 	wget -O - http://qgis.org/downloads/qgis-2015.gpg.key | gpg --import
+
+and...
 
 	gpg --fingerprint 3FF5FFCAD71472C4
 
