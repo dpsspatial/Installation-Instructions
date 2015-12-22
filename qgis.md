@@ -22,3 +22,5 @@ Now install QGIS:
 And if you want the GRASS plugin, use this install command:
 
 	sudo apt-get update && sudo apt-get install qgis python-qgis qgis-plugin-grass
+
+You now have QGIS Installed!
