@@ -1,5 +1,7 @@
 #Install QGIS#
 
+**NOTE**: This is geared towards Debian (Ubuntu, Mint) version 14.04 (Trusty). If you're using a different version, please replace the words "Trusty" below with your version's nickname.
+
 Open Terminal by typing `Ctrl+Alt+T`
 
 Add links to the QGIS software repositories to your sources.list file:
@@ -15,9 +17,13 @@ Then add the QGIS  keyservers:
 
 	wget -O - http://qgis.org/downloads/qgis-2015.gpg.key | gpg --import
 
-and...
+Then...
 
 	gpg --fingerprint 3FF5FFCAD71472C4
+
+Now add the public key to APT:
+
+	gpg --export --armor 3FF5FFCAD71472C4 | sudo apt-key add -
 
 Now install QGIS:
 
