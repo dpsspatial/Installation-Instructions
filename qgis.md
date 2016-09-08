@@ -15,15 +15,15 @@ and...
 
 Then add the QGIS  keyservers:
 
-	wget -O - http://qgis.org/downloads/qgis-2015.gpg.key | gpg --import
+	wget -O - http://qgis.org/downloads/qgis-2016.gpg.key | gpg --import
 
 Then...
 
-	gpg --fingerprint 3FF5FFCAD71472C4
+	gpg --fingerprint 073D307A618E5811
 
 Now add the public key to APT:
 
-	gpg --export --armor 3FF5FFCAD71472C4 | sudo apt-key add -
+	gpg --export --armor 073D307A618E5811 | sudo apt-key add -
 
 Now install QGIS:
 
