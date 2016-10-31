@@ -1,4 +1,4 @@
-Below are instructions for installing osm2pgRouting and its dependencies on a Linux Debian machine.
+Below are instructions for installing osm2pgRouting and its dependencies on a Linux Debian machine. (Note this assumes PostGIS and pgRouting are already installed)
 
 #Install Dependencies
 
@@ -16,8 +16,10 @@ or:
 #expat
 	sudo apt-get install expat libexpat1-dev
 
-#libpqf
-	sudo apt-get install libpq-dev
+#libpq
+This installs the Postgresql binaries for non pgSQL server machines
+
+	sudo apt-get update && sudo apt-get install libpq-dev
 
 #Install osm2pgrouting
 
@@ -32,11 +34,7 @@ download from github
 							
 unzip the file
 
-	unzip master.zip //-d destination_folder
-
-(if on a non-postgresql install machine, make sure you install **libpq-dev**)
-	
-	sudo apt-get install libpq-dev (optional)
+	unzip master.zip
 
 	cd osm2pgrouting-master
 
@@ -63,39 +61,18 @@ unzip the file
 
 	bzip2 -d denver-boulder_colorado.osm.bz2
 
-install osmconvert to clip the OSM file to Denver: 
+#Load OSM Data into pgRouting
 
-	sudo apt-get install osmctools
+While in \Downloads, go to location of osm2pgrouting  
 
-use OSMCONVERT to extract denver (optional): 
+	cd \osm2pgrouting-master/build
 
-	osmconvert denver-boulder_colorado.osm -b=-105.147456690777,39.5853206121359,-104.561947277233,39.9431650145789 -o=denver_DPS.osm
+Run osm2pgRouting - this will take your .OSM file and load it into the server you're specified, including the new flag for *--schema*, which in this case will load the data into a schema on the database called *osm*:
 
+	./osm2pgrouting -f ~/Downloads/denver-boulder_colorado.osm -c ~/Downloads/osm2pgrouting-master/mapconfig.xml --schema osm --prefix osm_ -h pghostname -d pgdatabasename -U pgusername -W pgpassword --clean
 
-Next, ensure your PostgreSQL search path points to the schema you want to load your OSM data into: 
+Note: the paramters above and more instructions can be found here: [https://github.com/pgRouting/osm2pgrouting#how-to-use](https://github.com/pgRouting/osm2pgrouting#how-to-use)
 
-To see current order, in pgAdmin SQL window:
-
-	show search_path
-
-Change to osm schema (schema must already be created) in SQL:
-
-	set search_path = osm, public
-
-While in Downloads/osm2pgrouting-master/build
-
-	cd \Downloads/osm2pgrouting-master/build
-
-
-
-
-Run osm2pgRouting - this will take your .OSM file and load it into the server you're specified:
-
-	./osm2pgrouting -file ~/Downloads/denver-boulder_colorado.osm -conf ~/Downloads/osm2pgrouting-master/mapconfig.xml -host 860-10d2-data -dbname dps_osm -user postgres -passwd xxx -clean
-
-Make sure you reset your search path in SQL:
-
-	set search_path = public, osm
 
 
 
