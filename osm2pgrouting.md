@@ -17,7 +17,7 @@ or:
 	sudo apt-get install expat libexpat1-dev
 
 #libpqf
-sudo apt-get install libpq-dev
+	sudo apt-get install libpq-dev
 
 #Install osm2pgrouting
 
@@ -36,7 +36,7 @@ unzip the file
 
 (if on a non-postgresql install machine, make sure you install **libpq-dev**)
 	
-	sudo apt-get install libpq-dev
+	sudo apt-get install libpq-dev (optional)
 
 	cd osm2pgrouting-master
 
@@ -63,6 +63,9 @@ unzip the file
 
 	bzip2 -d denver-boulder_colorado.osm.bz2
 
+install osmconvert to clip the OSM file to Denver: 
+
+	sudo apt-get install osmctools
 
 use OSMCONVERT to extract denver (optional): 
 
