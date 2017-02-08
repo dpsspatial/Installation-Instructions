@@ -1,4 +1,4 @@
-## Connecting PostgreSQL to LibreOffice ##
+## Visualizing PostGIS data in LibreOffice ##
 
 Rather than relying on charting and visualization tools within a GIS software package, or the issues connecting proprietary software packages to each other with a hack, instead use LibreOffice to connect to your PostgreSQL (and thus PostGIS) data with the LibreOffice Base database connection tools.
 
