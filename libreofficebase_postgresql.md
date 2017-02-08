@@ -53,7 +53,7 @@ Double-clicking a table will give you access to the raw data - careful not to ch
 
 # Create Spatial Query and Result Table #
 
-For this example, I want to chart the number of students by grade in the NW Neighborhoods of Denver as defined by the [City and County of Denver Statistical Neighborhoods](http://data.denvergov.org/download/gis/statistical_neighborhoods/) dataset. 
+For this example, I want to chart the number of students by grade in the NW Neighborhoods of Denver as defined by the [City and County of Denver Statistical Neighborhoods](https://www.denvergov.org/opendata/dataset/city-and-county-of-denver-statistical-neighborhoods) dataset. 
 
 We store the students separate from the neighborhoods they live in, so I will spatially intersect the students from our internal spatial table of October Count students with the neighborhoods.
 
