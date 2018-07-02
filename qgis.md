@@ -1,4 +1,4 @@
-#Install QGIS#
+##Install QGIS on Ubuntu or Linux Mint##
 
 **NOTE**: This is geared towards Debian (Ubuntu, Mint) version 16.04 (Xenial). If you're using a different version, please replace the words "Xenial" below with your version's nickname (14.04 is "Trusty")
 
