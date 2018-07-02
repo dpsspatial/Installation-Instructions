@@ -1,17 +1,27 @@
 # Install QGIS on Ubuntu or Linux Mint
 
-**NOTE**: This is geared towards Debian (Ubuntu, Mint) version 16.04 (Xenial). If you're using a different version, please replace the words "Xenial" below with your version's nickname (14.04 is "Trusty")
+## Check Version and Codename
+
+First, what version of Debian Linux (Ubuntu / Mint) are you running?
+
+The knickname of your APT repository will depend on the version of the OS and which version of QGIS you can run.
+
+QGIS 3.x will run on Ubuntu 18.04 (bionic) and Linux Mint 19 (bionic) and *above*.
+
+QGIS 2.18.x will run on Ubuntu 16.04 (xenial) and Linux Mint 18.x (xenial) and *below*.
+
+## Add links to QGIS repositories
 
 Open Terminal by typing `Ctrl+Alt+T`
 
 Add links to the QGIS software repositories to your sources.list file:
 
 
-	sudo sh -c 'echo "deb http://qgis.org/debian xenial main" >> /etc/apt/sources.list'
+	sudo sh -c 'echo "deb http://qgis.org/debian codename main" >> /etc/apt/sources.list'
 
 and...
 
-	sudo sh -c 'echo "deb-src http://qgis.org/debian xenial main " >> /etc/apt/sources.list'
+	sudo sh -c 'echo "deb-src http://qgis.org/debian codename main " >> /etc/apt/sources.list'
 
 Then add the QGIS  keyservers:
 
@@ -25,7 +35,7 @@ Now add the public key to APT (don't miss that dash at the end...):
 
 	gpg --export --armor CAEB3DC3BDF7FB45 | sudo apt-key add -
 
-Now install QGIS:
+## Install QGIS:
 
 	sudo apt-get update && sudo apt-get install qgis python-qgis
 
