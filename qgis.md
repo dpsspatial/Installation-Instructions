@@ -21,7 +21,7 @@ Then...
 
 	gpg --fingerprint CAEB3DC3BDF7FB45
 
-Now add the public key to APT:
+Now add the public key to APT (don't miss that dash at the end...):
 
 	gpg --export --armor CAEB3DC3BDF7FB45 | sudo apt-key add -
 
