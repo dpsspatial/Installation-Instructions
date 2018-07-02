@@ -4,7 +4,7 @@
 
 First, what version of Debian Linux (Ubuntu / Mint) are you running?
 
-The knickname of your APT repository will depend on the version of the OS and which version of QGIS you can run.
+The codename of your APT repository will depend on the version of the OS and which version of QGIS you can run.
 
 QGIS 3.x will run on Ubuntu 18.04 (bionic) and Linux Mint 19 (bionic) and *above*.
 
@@ -35,7 +35,7 @@ Now add the public key to APT (don't miss that dash at the end...):
 
 	gpg --export --armor CAEB3DC3BDF7FB45 | sudo apt-key add -
 
-## Install QGIS:
+## Install QGIS
 
 	sudo apt-get update && sudo apt-get install qgis python-qgis
 
