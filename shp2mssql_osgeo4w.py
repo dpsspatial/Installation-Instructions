@@ -4,13 +4,15 @@ import os
 #Define input SHP and database parameters:
 #location of OSGEO4W:
 osgeo4w = 'C:\Program Files\QGIS 2.18\OSGeo4W.bat'
+#database parameters
 servername = 'servername'
 databasename = 'databasename'
+#spatial data parameters
 sourceshp = 'shp\ELECTORAL_DISTRICT.shp'
 crs_source = '5320'
 crs_dest = '4326'
 
-#MSSQL Destination
+#MSSQL Destination Table
 desttable = 'schema.tablename'
 
 ##########
