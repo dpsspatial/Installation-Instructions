@@ -1,6 +1,6 @@
 # Using CSVKit to load CSV files into PostGIS #
 
-This tutorial will show how to load a large CSV file into PostgreSQL and turn the LAT/LON columns into geometry using CSVKit.
+This tutorial will show how to load a large CSV file into PostgreSQL using CSVKit, then turn the LAT/LON columns into geometry using PostGIS.
 
 CSVKit is a utility used at command line / terminal and installed via Python.
 
