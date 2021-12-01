@@ -1,0 +1,16 @@
+
+    CREATE OR REPLACE FUNCTION public.st_routed_distance(g_start geometry, g_finish geometry, exclude_value character varying DEFAULT 'ferry'::character varying)
+
+    RETURNS double precision
+    LANGUAGE sql
+    COST 10000
+    AS $function$
+
+    SELECT  (http_get(
+           'http://server-name:5000/route/v1/driving/' ||
+
+           ST_X(ST_Transform(g_start, 4326)) || ',' || ST_Y(ST_Transform(g_start, 4326)) ||';' ||
+           ST_X(ST_Transform(g_finish, 4326)) || ',' || ST_Y(ST_Transform(g_finish, 4326)) ||
+           '?geometries=geojson&overview=false&alternatives=false&steps=false&exclude='|| exclude_value)::jsonb -> 'routes' -> 0 ->
+       'distance')::text::float * 0.000621371
+    $function$;
