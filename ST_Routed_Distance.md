@@ -1,6 +1,8 @@
 ## Create Custom Routing Functions using OSRM
 
-The ST_Routed_Distance() and ST_Routed_Line() functions use the OSRM routing server and the Postgresql HTTP Client to return a routed distance and geometry from two input geometries. We use this instead of PGRouting because we process 10's of thousands of routes (students, bus routes, etc.) and we are fine using OpenStreetMap as it is a good source of regional street network data (vs. using the City and County of Denver Street Centerline file) 
+The ST_Routed_Distance() and ST_Routed_Line() functions use the OSRM routing server and the Postgresql HTTP Client to return a routed distance and geometry from two input geometries. Think of it as replacing the ST_Distance() function with one that uses routed lines and distances instead of straight-line.  
+
+We use this instead of PGRouting because we process 10's of thousands of routes (students, bus routes, etc.) and we are fine using OpenStreetMap as it is a good source of regional street network data (vs. using the City and County of Denver Street Centerline file) 
 
 ### Set Up OSRM Server
 
@@ -61,10 +63,7 @@ A typical use case for us would be something like this:
 
     select
         stu.studentnumber
-        , ST_Routed_Distance(
-            stu.geom
-            , sch.geom
-        )
+        , ST_Routed_Distance(stu.geom , sch.geom)
     from
         dpsdata."Active_Students" as stu
     join dpsdata."Schools_Current" as sch on
@@ -75,7 +74,7 @@ A typical use case for us would be something like this:
         and sch.schnum = '215'
         
 
-This requests the routed distance for each student attending SchNum 215 (using the WHERE filter). Other information can be retrieved if needed, and other WHERE filters can be applied where necessary. 
+This returns the studentnumber and the routed distance for each student attending SchNum 215 (using the WHERE filter). Other information can be retrieved if needed, and other WHERE filters can be applied where necessary. 
 
 This can also be used in an UPDATE if you wanted to assign a distance to an existing column in a table of students. 
 
