@@ -34,11 +34,7 @@ Note the creation of the http_get() SQL function, which will be used below.
     $function$
     ;
 
-Notes: 
-
-- The function includes the exclude_value parameter, giving the ability to omit types of streets/lines in the routing. Be default, 'ferry' lines are excluded. Using this parameter is outlined below; 
 - The URL to the OSRM server points to the DRIVING profile, you can also other profiles such as WALKING, etc.
-
 
 ### Create ST_Routed_Line() 
 
@@ -57,7 +53,7 @@ Notes:
     $function$
     ;
 
-### Using Custom Functions
+### Using the Functions in SQL
 
 A typical use case for us would be something like this:
 
@@ -79,6 +75,8 @@ This returns the studentnumber and the routed distance for each student attendin
 This can also be used in an UPDATE if you wanted to assign a distance to an existing column in a table of students. 
 
 ### Excluding Values in Routing Calculation
+
+These function includes the exclude_value parameter, giving the ability to omit types of streets/lines in the routing. Be default, 'ferry' lines are excluded.  
 
 To exclude highways, for example (the types of features are defined in the OSM data), simply add the type to the function when using it: 
 
