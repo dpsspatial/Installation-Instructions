@@ -1,14 +1,14 @@
-##Create Custom Routing Functions using OSRM
+## Create Custom Routing Functions using OSRM
 
 The ST_Routed_Distance() and ST_Routed_Line() functions use the OSRM routing server and the Postgresql HTTP Client to return a routed distance and geometry from two input geometries. 
 
-###Set Up OSRM Server
+### Set Up OSRM Server
 
 http://project-osrm.org/
 
 We use Docker to run the OSRM server. 
 
-###Install PostgreSQL HTTP Client
+### Install PostgreSQL HTTP Client
 
 Follow the instructions provided by Paul Ramsey posted here: 
 
@@ -16,7 +16,7 @@ https://github.com/pramsey/pgsql-http
 
 Note the creation of the http_get() SQL function, which will be used below. 
 
-###Create ST_Routed_Distance() 
+### Create ST_Routed_Distance() 
 
     CREATE OR REPLACE FUNCTION public.st_routed_distance(g_start geometry, g_finish geometry, exclude_value character varying DEFAULT 'ferry'::character varying)
      RETURNS double precision
@@ -32,7 +32,7 @@ Note the creation of the http_get() SQL function, which will be used below.
     $function$
     ;
 
-###Create ST_Routed_Line() 
+### Create ST_Routed_Line() 
 
     CREATE OR REPLACE FUNCTION public.st_routed_line(g_start geometry, g_finish geometry, exclude_value character varying DEFAULT 'ferry'::character varying)
      RETURNS geometry
@@ -49,6 +49,6 @@ Note the creation of the http_get() SQL function, which will be used below.
     $function$
     ;
 
-###Using Custom Functions
+### Using Custom Functions
 
 
