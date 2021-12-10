@@ -13,6 +13,10 @@ Not only is CSVKit the best way to generate a SQL 'create table' expression from
 While in command line / terminal:
 
     pip install csvkit 
+    
+Note: CSVKit version 1.0.6 seems to be broken, so force the version of 1.0.5 with the following command:
+
+	sudo pip install csvkit==1.0.5
 
 *Note: this requires PIP for Python to be installed*
 
