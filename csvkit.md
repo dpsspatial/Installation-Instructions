@@ -8,7 +8,7 @@ Not only is CSVKit the best way to generate a SQL 'create table' expression from
 
 *A lot of this is based on the [Eleven Awesome Things you can do with CSVKit](https://source.opennews.org/en-US/articles/eleven-awesome-things-you-can-do-csvkit/) article.*
 
-**Installing CSVKit**
+### Installing CSVKit
 
 While in command line / terminal:
 
@@ -20,7 +20,7 @@ Note: CSVKit version 1.0.6 seems to be broken, so force the version of 1.0.5 wit
 
 *Note: this requires PIP for Python to be installed*
 
-**Inspect a CSV**
+### Inspect the CSV
 
 Next browse to a folder where you have a CSV loaded, for me in my Downloads folder. I will use the City and County of Denver Crimes dataset which you can [download for free](https://www.denvergov.org/opendata/dataset/city-and-county-of-denver-crime).
 
@@ -50,6 +50,8 @@ The output gives a summary of each column of data in the CSV. Here's a sample of
     2013409529.0:   6
     2011180275.0:   6
     2016134777.0:   6
+
+### (Optional) Create Table DDL
 
 Next, you can get a SQL table definition from the CSV file (but don't run the SQL command, we'll load it all in the next step):
 
@@ -85,7 +87,7 @@ The output will give us a SQL statement that can be used to create an empty tabl
 
 Again, the next step will show how to load the data with the correct schema definition in one command. Otherwise, you could take that SQL statement, run it in the database, then use the Import / COPY command to load your CSV. 
 
-**Load the CSV into PostgreSQL**
+### Load the CSV into PostgreSQL
 
 Next, we'll load the data into the PostgreSQL database in one easy command skipping the CSVSQL command above and the COPY step.
 
@@ -99,22 +101,31 @@ Again, this is a large dataset, but when complete, open up DBeaver (or PGAdmin) 
 
 *Note: we use the schema 'ccd' to house data from the City and County of Denver, Census Bureau, State of Colorado, etc.* 
 
-**Create Geometry from Lat/Lon**
+### Create Geometry from Lat/Lon
 
 The table we created from the CSV doesn't have a geometry column, instead it comes with the LAT and LON values in both State Plane (GEO_X, GEO_Y) and WGS84 (GEO_LON, GEO_LAT).
 
 Using the a couple of spatial functions, we can turn the GEO_LON and GEO_LAT columns into geometry in WGS84 (SRID: 4326)
 
+### Add geometry column
+
 First, our table needs a geometry column. In a SQL command, run:
 
     alter table ccd."CCD_Crime" add geom geometry(point, 4326);
 
+### Create geometry  
 Then, fill the empty geometry column up with a geometry object built from the GEO_LON and GEO_LAT columns:
 
     UPDATE ccd."CCD_Crime" set geom = ST_SetSRID(ST_MakePoint("GEO_LON", "GEO_LAT"), 4326)
 
-The above SQL uses the [ST_MakePoint](http://postgis.net/docs/ST_MakePoint.html) to assemble a geometry object from the two columns. Then, wrap that with the [ST_SetSRID](http://postgis.net/docs/ST_SetSRID.html) function to set the spatial reference of the points to 4326 (WGS84).
+*The above SQL uses the [ST_MakePoint](http://postgis.net/docs/ST_MakePoint.html) to assemble a geometry object from the two columns. Then, wrap that with the [ST_SetSRID](http://postgis.net/docs/ST_SetSRID.html) function to set the spatial reference of the points to 4326 (WGS84).*
 
-The denver_crime table now has geometry in the geom column, so you can now view the points in QGIS:
+### Add a spatial index
+The last step is to add a spatial index to the table: 
+
+    CREATE INDEX ccd_crime_sindx ON ccd."CCD_Crime" USING gist (geom);
+
+### View the data in QGIS
+You can now view the points in QGIS (or the DBeaver spatial viewer!)
 
 ![img_2.png](img_2.png)
