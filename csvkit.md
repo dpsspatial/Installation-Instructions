@@ -85,13 +85,15 @@ Again, the next step will show how to load the data with the correct schema defi
 
 Next, we'll load the data into the PostgreSQL database in one easy command skipping the CSVSQL command above and the COPY step.
 
-This is the syntax to specify the database to connect to, the name of the table to create, and the csv file you want to load: 
+This is the syntax to specify the database to connect to, which schema to put the table, the name of the table to create, and the csv file you want to load: 
 
-    csvsql --db postgresql://username:password@servername/databasename --table denver_crime --insert crime.csv
+    csvsql --db postgresql://username:password@servername/databasename --db-schema ccd --table "CCD_Crime" --insert crime.csv
 
-Again, this is a large dataset, but when complete, open up PGAdmin and see the new table:
+Again, this is a large dataset, but when complete, open up DBeaver (or PGAdmin) and see the new table - note the column types are all properly defined and ready for date analysis, etc.: 
 
-![](https://raw.githubusercontent.com/dpsspatial/Images/master/denver_crime_table.PNG)
+![img.png](img.png)
+
+*Note: we use the schema 'ccd' to house data from the City and County of Denver, Census Bureau, State of Colorado, etc.* 
 
 **Create Geometry from Lat/Lon**
 
@@ -99,16 +101,16 @@ The table we created from the CSV doesn't have a geometry column, instead it com
 
 Using the a couple of spatial functions, we can turn the GEO_LON and GEO_LAT columns into geometry in WGS84 (SRID: 4326)
 
-First, our denver_crime table needs a geometry column. In the PGAdmin SQL window, run:
+First, our table needs a geometry column. In a SQL command, run:
 
-    alter table denver_crime add geom geometry(point, 4326);
+    alter table ccd."CCD_Crime" add geom geometry(point, 4326);
 
 Then, fill the empty geometry column up with a geometry object built from the GEO_LON and GEO_LAT columns:
 
-    UPDATE denver_crime set geom = ST_SetSRID(ST_MakePoint("GEO_LON", "GEO_LAT"), 4326)
+    UPDATE ccd."CCD_Crime" set geom = ST_SetSRID(ST_MakePoint("GEO_LON", "GEO_LAT"), 4326)
 
 The above SQL uses the [ST_MakePoint](http://postgis.net/docs/ST_MakePoint.html) to assemble a geometry object from the two columns. Then, wrap that with the [ST_SetSRID](http://postgis.net/docs/ST_SetSRID.html) function to set the spatial reference of the points to 4326 (WGS84).
 
 The denver_crime table now has geometry in the geom column, so you can now view the points in QGIS:
 
-![](https://github.com/dpsspatial/Images/blob/master/denver_crime_map.png?raw=true)
+![img_1.png](img_1.png)![](https://github.com/dpsspatial/Images/blob/master/denver_crime_map.png?raw=true)
