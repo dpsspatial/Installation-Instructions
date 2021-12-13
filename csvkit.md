@@ -97,7 +97,7 @@ This is the syntax to specify the database to connect to, which schema to put th
 
 Again, this is a large dataset, but when complete, open up DBeaver (or PGAdmin) and see the new table - note the column types are all properly defined and ready for date analysis, etc.: 
 
-![img.png](img.png)
+![img.png](assets/img.png)
 
 *Note: we use the schema 'ccd' to house data from the City and County of Denver, Census Bureau, State of Colorado, etc.* 
 
@@ -128,4 +128,4 @@ The last step is to add a spatial index to the table:
 ### View the data in QGIS
 You can now view the points in QGIS (or the DBeaver spatial viewer!)
 
-![img_2.png](img_2.png)
+![img_2.png](assets/img_2.png)
