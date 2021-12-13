@@ -117,4 +117,4 @@ The above SQL uses the [ST_MakePoint](http://postgis.net/docs/ST_MakePoint.html)
 
 The denver_crime table now has geometry in the geom column, so you can now view the points in QGIS:
 
-![img_1.png](img_1.png)![](https://github.com/dpsspatial/Images/blob/master/denver_crime_map.png?raw=true)
+![img_2.png](img_2.png)
