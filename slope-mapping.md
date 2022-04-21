@@ -2,7 +2,7 @@
 
 This article will explore how to use the slope value of a trend line to create a map showing population growth and decline over 10 years of data. 
 
-![img.png](img.png)
+![img.png](assets/slopeimg.png)
 
 Recently we (finally) received the 2020 Census data, which not only kicked off a flurry of mapping that data, but also made us think about how to create temporal maps of our student-level data over the same time period of 2010-2020. 
 
@@ -37,19 +37,19 @@ We can do that with the following PostGIS SQL:
 
 ...which gives us back a count of students residing in each neighborhood for each year in question (in no particular order): 
 
-![img_1.png](img_1.png)
+![img_1.png](assets/slopeimg_1.png)
 
 ### Visualizing Non-Spatial Temporal Change
 
 One quick and dirty way to see how each neighborhood has changed over time is to simply dump the results into a spreadsheet, then pivot to order the counts by year. We use the Google Drive system at DPS, so I'll use the Google Spreadsheet tools for this next portion: 
 
-![img_2.png](img_2.png)
+![img_2.png](assets/slopeimg_2.png)
 
  *NOTE: I've removed any values below 15 for data privacy reasons*  
 
 From there, I can create a quick Line chart to show the reside counts by year by neighborhood:
 
-![img_3.png](img_3.png)
+![img_3.png](assets/img_3.png)
 
 That's not my favorite way to see the change over time, but you can definitely see there are some patterns - some neighborhoods are flat, some are in decline, and some continue to grow - in some cases quite rapidly. But there's just too many lines and no way to make sense of it all.
 
@@ -59,7 +59,7 @@ Adding a trend line can give another quick look at the average increase/decrease
 
 Here's a few trendlines manually applied to the top neighborhoods on our line chart:
 
-![img_6.png](img_6.png)
+![img_6.png](assets/img_6.png)
 
 Again, not my favorite, and would have to be applied to all lines and that would make things very messy.
 
@@ -75,7 +75,7 @@ Data_Y being values to plot on the Y-axis (population), and Data_X being the cor
 
 Applied to our data, it looks like this (with an additional conditional formatting applied to the values):
 
-![img_8.png](img_8.png)
+![img_8.png](assets/img_8.png)
 
 With the addition of the color ramp in the conditional formatting of the slope values, it would be great to see how that looks on a map. 
 
@@ -136,7 +136,7 @@ I was quickly able to figure out that pointing that function at a subquery of th
 
 This is the result: 
 
-![img_9.png](img_9.png)
+![img_9.png](assets/img_9.png)
 
 Same values as the Google Sheets function! And we didn't leave the database, and we grabbed the geometry for the neighborhoods along the way. With the use of the 'into' statement, you can create a new table from the results of the query. We're ready to look at the results in QGIS.
 
@@ -144,13 +144,13 @@ Same values as the Google Sheets function! And we didn't leave the database, and
 
 After bringing the layer into QGIS, I did some inspection of the data and decided on the following buckets and colors using a diverging (color-blind friendly) color scheme (from ColorBrewer.org):
 
-![img_10.png](img_10.png)
+![img_10.png](assets/img_10.png)
 
 I like it - a lot, actually! Usually we are looking at change over just 2 time periods - either 1 year apart, or 5 or 10 years apart... but being able to show the average change over 10 years including all years in between is fantastic!
 
 Since our SQL query included the Neighborhood name, we can use that as labels.
 
-![img_11.png](img_11.png)
+![img_11.png](assets/img_11.png)
 
 ### What does this all mean? 
 The bottom line for this analysis is that slope = average number per year of student increase or decrease in a neighborhood, and mapping this value is a great visual to show this change over 10 years as even the years in between can have an impact on the overall trend of growth and decline. 
