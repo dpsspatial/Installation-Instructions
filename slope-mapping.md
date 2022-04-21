@@ -51,7 +51,7 @@ From there, I can create a quick Line chart to show the reside counts by year by
 
 ![img_3.png](img_3.png)
 
-That's not my favorite way to see the change over time, but you can definitely see there are some patterns - some neighborhoods are flat, some are in decline, and some continue to grow - in some cases quite rapidly.
+That's not my favorite way to see the change over time, but you can definitely see there are some patterns - some neighborhoods are flat, some are in decline, and some continue to grow - in some cases quite rapidly. But there's just too many lines and no way to make sense of it all.
 
 ### Trend Lines in Spreadsheet Line Charts
 
@@ -67,7 +67,7 @@ But the trendline itself is meaningful, and represents the average change over t
 
 ### Calulating Slope in a Spreadsheet
 
-To calculate the slope of our data, we'll first use the Google Sheets formula:
+To calculate the slope of the trendline for each neighborhood, we'll first use this Google Sheets formula:
 
     SLOPE(data_y, data_x)
 
@@ -85,7 +85,7 @@ Now that Google Sheets has allowed us to explore the possibilities of using slop
 
 After a bit of digging, I found that indeed there is a slope function in Postgresql - [regr_slope(y,x)](https://www.postgresql.org/docs/14/functions-aggregate.html)
 
-I was quickly able to figure out that pointing that function at a subquery of the data we pulled at the beginning of this page made it easy to calculate the exact same values I created in the Google Sheet without doing any extra formatting or pivoting of the data:
+I was quickly able to figure out that pointing that function at a subquery of the data we pulled at the beginning of this page made it easy to calculate the exact same values I created in the Google Sheet without doing any extra exporting/copying, formatting or pivoting of the data:
 
     --first create a subquery using a common table expression called 's'
     
@@ -153,12 +153,15 @@ Since our SQL query included the Neighborhood name, we can use that as labels.
 ![img_11.png](img_11.png)
 
 ### What does this all mean? 
+The bottom line for this analysis is that slope = average number per year of student increase or decrease in a neighborhood, and mapping this value is a great visual to show this change over 10 years as even the years in between can have an impact on the overall trend of growth and decline. 
 
-Unfortunately we have something we refer to as the "Denver Pattern" in a lot of the demographic data points we analyse, and this map fits that pattern - decline in the SW and N/Central parts of the city, growth in the NE/Far Northeast, and basically flat growth in the SE part of the City. 
+Unfortunately we have something we refer to as the "Denver Pattern" in a lot of the demographic data points we analyze, and this map fits that pattern - decline in the SW and N/Central parts of the city, growth in the NE/Far Northeast, and basically flat growth in the SE part of the City. 
 
 This map also fits with our analysis that shows some neighborhoods, especially in NW Denver are rebounding from the effects of gentrification, and more K-5 students are returning to the neighborhoods after several years of decline. This fits with the patterns in the number of births we see in these neighborhoods as well.
 
-The bottom line for this analysis is that slope = average number per year of student increase or decrease in a neighborhood, and mapping this value is a great visual to show this change over 10 years as even the years in between can have an impact on the overall trend of growth and decline. 
+### Comments or Suggestions?
+
+This is bit of an experiment, and I wonder what thoughts anyone has about this method? Please send us an email to [planning@dpsk12.org](mailto:planning@dpsk12.org)  or on Twitter [@dpsspatial](https://twitter.com/dpsspatial). 
 
 
 
